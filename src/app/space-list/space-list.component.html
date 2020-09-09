@@ -1,0 +1,63 @@
+<div class="container-fluid">
+  <h3 class="title">SpaceX Lauch Programs</h3>
+  <div class="launchesContainer">
+    <h3>Filters</h3>
+    <div class="row">
+      <div class="col-md-2" id="filterlaunches">
+        <h5 class="yearFilterTitle">Launch Year</h5>
+        <div class="row">
+          <div *ngFor="let yr of listOfyears" class="col-md-6">
+            <button 
+              class="filterYearBtns">{{yr.year}}
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <h5 class="yearFilterTitle">Successful Launch</h5>
+          <div class="col-md-6">
+            <button class="filterYearBtns" (click)="trueLaunch()">True</button>
+          </div>
+          <div class="col-md-6">
+            <button class="filterYearBtns" (click)="falseLaunch()">False </button>
+          </div>
+
+        </div>
+        <div class="row">
+          <h5 class="yearFilterTitle">Successful Landing </h5>
+          <div class="col-md-6">
+            <button class="filterYearBtns">True </button>
+          </div>
+          <div class="col-md-6">
+            <button class="filterYearBtns">False </button>
+          </div>
+
+        </div>
+      </div>
+      <!-- -------------------------Launchers container----------------- -->
+      <div class="col-md-10" id="firstRowLaunches">
+        <div class="row">
+          <div class="col-md-3" *ngFor="let item of totalLaunchList" id="launchesGrid">
+            <div class="card" style="width: 18rem;">
+              <div class="missionImg"><img src="{{item.links.mission_patch_small}}" alt=""></div>
+              <div class="card-body">
+                <h5 class="card-title"> {{item.mission_name}} #{{item.flight_number}}</h5>
+                <p class="card-text listTitles">Mission Ids:</p>
+                <ul *ngFor="let missionId of getMissionid(missionIds)">
+                  <li>{{missionId}}</li>
+                </ul>
+                <p class="card-text listTitles">Launch Year: <span id="detailsLaunch">{{item.launch_year}}</span> </p>
+                <p class="card-text listTitles">Successful Lauches: <span
+                    id="detailsLaunch">{{item.launch_success}}</span></p>
+                <p class="card-text listTitles">Successfull Landing: <span id="detailsLaunch"></span></p>
+              </div>
+            </div>
+            <div class="missionImg"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center">
+    <h3 class="text-center"><span style="font-weight: 700;">DevelopedBy:</span> SELVAPERUMAL</h3>
+  </div>
+</div>

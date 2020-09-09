@@ -1,0 +1,56 @@
+.container-fluid{
+    background-color: whitesmoke;
+}
+#firstRowLaunches{
+    background-color: whitesmoke;
+    overflow: hidden;
+}
+.missionImg {
+    background-color: whitesmoke;
+    /* padding: 10px; */
+}
+#launchesGrid{
+    padding: 20px;
+    /* text-align: center; */
+    background-color: white;
+    margin-bottom: 18px;
+}
+.card{
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: whitesmoke;
+    background-clip: border-box;
+    border: none;
+    border-radius: .5rem
+}
+.card-title {
+    margin-bottom: .75rem;
+    color: blue;
+    font-weight: 700;
+}
+.listTitles{
+    font-weight: bold;
+}
+#detailsLaunch{
+    font-weight: 400;
+    color: blue;
+}
+button.filterYearBtns {
+    border: none;
+    background-color: #c5e09b;
+    border-radius: 4px;
+    margin: 5px;
+    padding: 1px 16px;
+}
+.yearFilterTitle{
+    text-align: center;
+    text-decoration: underline;
+}
+#filterlaunches{
+    text-align: center;
+}
