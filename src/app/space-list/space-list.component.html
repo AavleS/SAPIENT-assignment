@@ -6,36 +6,31 @@
       <div class="col-md-2" id="filterlaunches">
         <h5 class="yearFilterTitle">Launch Year</h5>
         <div class="row">
-          <div *ngFor="let yr of listOfyears" class="col-md-6">
-            <button 
-              class="filterYearBtns">{{yr.year}}
+          <div *ngFor="let yr of listOfyears; let i = index" class="col-md-6">
+            <button [ngClass]="(lastClickedIndex == i) ? 'activeBtn': 'nonActiveBtn'"
+              (click)="yearFilter(i,yr.year)">{{yr.year}}
             </button>
           </div>
         </div>
         <div class="row">
           <h5 class="yearFilterTitle">Successful Launch</h5>
-          <div class="col-md-6">
-            <button class="filterYearBtns" (click)="trueLaunch()">True</button>
+          <div class="col-md-6" *ngFor="let status of lauchesStatus;let l=index">
+            <button [ngClass]="(launchIndex == l) ? 'activeBtn': 'nonActiveBtn'"
+              (click)="statusLaunch(l,status.status,activeBtn)">{{status.status}}</button>
           </div>
-          <div class="col-md-6">
-            <button class="filterYearBtns" (click)="falseLaunch()">False </button>
-          </div>
-
         </div>
         <div class="row">
           <h5 class="yearFilterTitle">Successful Landing </h5>
-          <div class="col-md-6">
-            <button class="filterYearBtns">True </button>
+          <div class="col-md-6" *ngFor="let status of landingStatus; let i=index">
+            <button [ngClass]="(landingIndex == i) ? 'activeBtn': 'nonActiveBtn'"
+              (click)="statusLanding(i,status.status)">{{status.status}} </button>
           </div>
-          <div class="col-md-6">
-            <button class="filterYearBtns">False </button>
-          </div>
-
         </div>
       </div>
       <!-- -------------------------Launchers container----------------- -->
       <div class="col-md-10" id="firstRowLaunches">
         <div class="row">
+          <div class="noRecord"><p *ngIf="(dataNotfound)">NO DATA FOUND!</p></div>
           <div class="col-md-3" *ngFor="let item of totalLaunchList" id="launchesGrid">
             <div class="card" style="width: 18rem;">
               <div class="missionImg"><img src="{{item.links.mission_patch_small}}" alt=""></div>

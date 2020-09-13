@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {LaunchService} from 'src/app/launch.service'
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { LaunchService } from 'src/app/launch.service'
 
 @Component({
   selector: 'app-space-list',
@@ -7,76 +7,84 @@ import {LaunchService} from 'src/app/launch.service'
   styleUrls: ['./space-list.component.css']
 })
 export class SpaceListComponent implements OnInit {
-  totalLaunchList=[];
-  years = {}
-  listOfyears=[]
-  missionIds=new Map<String, String>();
-  constructor(private LaunchService :LaunchService ) {
-    
-   }
+  totalLaunchList = [];
+  @ViewChild('activeBtn')activeBtn: ElementRef;
+  listOfyears = [
+    { "year": 2006 },
+    { "year": 2007 },
+    { "year": 2008 },
+    { "year": 2009 },
+    { "year": 2010 },
+    { "year": 2011 },
+    { "year": 2012 },
+    { "year": 2013 },
+    { "year": 2014 },
+    { "year": 2015 },
+    { "year": 2016 },
+    { "year": 2017 },
+    { "year": 2018 },
+    { "year": 2019 },
+    { "year": 2020 },
+  ]
+  lauchesStatus = [{ "status": "true" }, { "status": "false" }]
+  landingStatus = [{ "status": "true" }, { "status": "false" }]
+  missionIds = new Map<String, String>();
+  launchIndex: any;
+  landingIndex: any;
+  landing: any;
+  launch_year: any;
+  launch: any;
+  year: any;
+  dataNotfound = false
+  yearFlag = false;
+  constructor(private LaunchService: LaunchService) {
+
+  }
 
   ngOnInit() {
-    this.LaunchService.getAllLaunchesList()
-    .subscribe(res=>{
-      console.log(res)
-     this.totalLaunchList = res
-     this.missionIds.set(res.mission_id,res.mission_id)
-      for(var i=1; i<this.totalLaunchList.length; i++){
-        // console.log(this.totalLaunchList[i-1].launch_year)
-        if(this.totalLaunchList[i-1].launch_year!=this.totalLaunchList[i].launch_year){
-        // console.log(this.totalLaunchList[i].launch_year)
-          this.years["year"] = this.totalLaunchList[i-1].launch_year
-          this.listOfyears.push(this.years)
-          this.years={}
-        }
 
-      }
-      console.log("Years getting",this.listOfyears)
-
-    //  this.missionIds = res.mis
-    })
+    this.default()
   }
-  getMissionid(ids){
+  default() {
+    this.LaunchService.getAllLaunchesList()
+      .subscribe(res => {
+        this.totalLaunchList = res
+        console.log(this.totalLaunchList)
+        if(this.totalLaunchList.length==0){
+          this.dataNotfound = true
+        }
+        else{
+          this.dataNotfound = false
+          
+        }
+        this.missionIds.set(res.mission_id, res.mission_id)
+      })
+  }
+  lastClickedIndex;
+  yearFilter(i, year) {
+    this.launch_year = year
+    this.lastClickedIndex = i;
+    this.LaunchService.filtersYear = this.launch_year
+    this.default()
+    this.yearFlag = true
+
+  }
+  statusLaunch(i, status) {
+    this.launch = status
+    this.launchIndex = i;
+    // console.log("launchIndex", status)
+    this.LaunchService.launchs = this.launch
+    this.default()
+  }
+  statusLanding(i, status) {
+    this.landing = status
+    this.landingIndex = i
+    this.LaunchService.landing = this.landing
+    this.default()
+  }
+  getMissionid(ids) {
     return Array.from(ids.keys())
   }
-  trueLaunch(){
-    const btnclicked = 'true'
-    localStorage.setItem('successLaunch',btnclicked )
-    this.LaunchService.getSuccessFilter()
-    .subscribe(res=>{
-      console.log("LAUNCH SUCESS APPLIED",res)
-      this.totalLaunchList = res
-      this.missionIds.set(res.mission_id,res.mission_id)
-       for(var i=1; i<this.totalLaunchList.length; i++){
-         // console.log(this.totalLaunchList[i-1].launch_year)
-         if(this.totalLaunchList[i-1].launch_year!=this.totalLaunchList[i].launch_year){
-         // console.log(this.totalLaunchList[i].launch_year)
-           this.years["year"] = this.totalLaunchList[i-1].launch_year
-           this.listOfyears.push(this.years)
-           this.years={}
-         }
- 
-       }
-    })
-  }
-  falseLaunch(){
-    const btnclicked = 'false'
-    localStorage.setItem('successLaunch',btnclicked )
-    this.LaunchService.getSuccessFilter()
-    .subscribe(res=>{
-      console.log("LAUNCH SUCESS APPLIED",res)
-      this.totalLaunchList = res
-      this.missionIds.set(res.mission_id,res.mission_id)
-       for(var i=1; i<this.totalLaunchList.length; i++){
-         // console.log(this.totalLaunchList[i-1].launch_year)
-         if(this.totalLaunchList[i-1].launch_year!=this.totalLaunchList[i].launch_year){
-         // console.log(this.totalLaunchList[i].launch_year)
-           this.years["year"] = this.totalLaunchList[i-1].launch_year
-           this.listOfyears.push(this.years)
-           this.years={}
-         }
- 
-       }
-    })
-  }
+
+
 }
