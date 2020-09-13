@@ -28,5 +28,4 @@ export class LaunchService {
     }
     return this.http.get<any>(this.allLaunchesUrl)
   }
-
 }

@@ -42,7 +42,6 @@ export class SpaceListComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.default()
   }
   default() {
