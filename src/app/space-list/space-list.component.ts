@@ -51,10 +51,10 @@ export class SpaceListComponent implements OnInit {
         this.totalLaunchList = res
         console.log(this.totalLaunchList)
         if(this.totalLaunchList.length==0){
-          this.dataNotfound = true
+          this.dataNotfound = true;
         }
         else{
-          this.dataNotfound = false
+          this.dataNotfound = false;
           
         }
         this.missionIds.set(res.mission_id, res.mission_id)
